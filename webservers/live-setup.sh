@@ -24,4 +24,9 @@ sudo chown www-data:www-data /var/www -R
 sudo adduser --disabled-password --gecos "" production-user
 sudo adduser production-user www-data
 sudo chmod -R 775 /var/www
-sudo rm /var/www/html/index*
+
+file="/var/www/html/index*"
+if [ -f "$file" ]
+then
+	sudo rm /var/www/html/index*
+fi
