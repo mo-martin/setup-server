@@ -4,7 +4,7 @@ sudo apt-get update -y
 sudo apt-get install git -y
 # nginx
 sudo apt-get install nginx -y
-sudo cp ./server-setup/webservers/default /etc/nginx/sites-enabled/default -f
+sudo cp ~/server-setup/webservers/default /etc/nginx/sites-enabled/default -f
 sudo service nginx restart
 # npm and nodejs
 sudo apt-get install npm -y
@@ -15,7 +15,7 @@ sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
 echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 sudo apt-get update -y
 sudo apt-get install -y mongodb-org
-sudo cp ./server-setup/webservers/mongodb.service /etc/systemd/system/mongodb.service -f
+sudo cp ~/server-setup/webservers/mongodb.service /etc/systemd/system/mongodb.service -f
 sudo systemctl start mongodb
 # pm2
 sudo npm install pm2 -g
