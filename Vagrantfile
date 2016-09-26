@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     api.vm.network :private_network, ip: "192.10.10.150"
     api.vm.network :forwarded_port, guest: 80 , host: 3001
     api.vm.synced_folder "webservers/", "/root/server-setup/webservers"
-    api.vm.synced_folder "../app", "/var/www/html"
+    api.vm.synced_folder "../api", "/var/www/html"
     api.vm.provision "shell", path: "webservers/setup.sh"
     api.vm.provision "shell", inline: "sudo usermod -a -G www-data vagrant"
   end
