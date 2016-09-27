@@ -24,10 +24,6 @@ template '/etc/nginx/sites-enabled/default' do
   source 'default.nginx.erb'
 end
 
-link '/usr/bin/nodejs' do
-  to '/usr/bin/node'
-end
-
 directory '/var/www' do
   owner 'www-data'
   group 'www-data'
@@ -35,6 +31,10 @@ directory '/var/www' do
   action :create
 end
 
-execute "sudo npm install pm2 -g" do
+execute "link node and nodejs" do
+  command "sudo ln -s /usr/bin/nodejs /usr/bin/node"
+end
+
+execute "install pm2" do
   command "sudo npm install pm2 -g"
 end
