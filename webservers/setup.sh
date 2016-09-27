@@ -1,14 +1,10 @@
 #!/bin/bash
 sudo apt-get update -y
 # git
-sudo apt-get install git -y
-# nginx
-sudo apt-get install nginx -y
+sudo apt-get install git nginx nodejs npm build-essential nodejs-legacy node-daemon -y
 sudo cp ~/server-setup/webservers/default /etc/nginx/sites-enabled/default -f
 sudo service nginx restart
 # npm and nodejs
-sudo apt-get install npm -y
-sudo apt-get install nodejs -y
 sudo ln -s /usr/bin/nodejs /usr/bin/node
 # Adding users and permissions
 sudo chown www-data:www-data /var/www -R
