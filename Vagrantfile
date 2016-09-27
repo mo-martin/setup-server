@@ -36,5 +36,6 @@ Vagrant.configure("2") do |config|
     db.vm.network :private_network, ip: "192.10.10.200"
     db.vm.synced_folder "database/", "/root/server-setup/database"
     db.vm.provision "shell", path: "webservers/chef_setup.sh"
+    db.vm.synced_folder "cookbooks/", "/root/server-setup/webservers"
   end
 end
