@@ -2,10 +2,10 @@
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
 
-  config.vm.define "test" do |test|
-    test.vm.box = "bento/ubuntu-16.04"
-    test.vm.synced_folder "cookbooks/", "/home/vagrant/cookbooks"
-  end
+  #config.vm.define "test" do |test|
+    #test.vm.box = "bento/ubuntu-16.04"
+    #test.vm.synced_folder "cookbooks/", "/home/vagrant/cookbooks"
+  #end
 
   config.vm.define "app" do |app|
     app.vm.box = "bento/ubuntu-16.04"

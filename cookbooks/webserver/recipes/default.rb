@@ -13,6 +13,8 @@ package 'git'
 package 'nginx'
 package 'npm'
 package 'nodejs'
+package 'nodejs-legacy'
+package 'build-essential'
 
 
 service 'nginx' do
@@ -29,10 +31,6 @@ directory '/var/www' do
   group 'www-data'
   mode '0775'
   action :create
-end
-
-execute "link node and nodejs" do
-  command "sudo ln -s /usr/bin/nodejs /usr/bin/node"
 end
 
 execute "install pm2" do
