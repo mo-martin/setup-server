@@ -17,6 +17,7 @@ Vagrant.configure("2") do |config|
     app.vm.synced_folder "../app", "/var/www/html"
     app.vm.provision "shell", path: "webservers/chef_setup.sh"
     app.vm.provision "shell", inline: "sudo usermod -a -G www-data vagrant"
+    app.vm.provision "shell", inline: "sudo chef-client --local-mode --runlist 'recipe[webserver]'"
   end
 
   config.vm.define "api" do |api|
@@ -29,6 +30,7 @@ Vagrant.configure("2") do |config|
     api.vm.synced_folder "../api", "/var/www/html"
     api.vm.provision "shell", path: "webservers/chef_setup.sh"
     api.vm.provision "shell", inline: "sudo usermod -a -G www-data vagrant"
+    api.vm.provision "shell", inline: "sudo chef-client --local-mode --runlist 'recipe[webserver]'"
   end
 
   config.vm.define "db" do |db|
@@ -38,5 +40,6 @@ Vagrant.configure("2") do |config|
     db.vm.synced_folder "database", "/home/vagrant/server-setup/database"
     db.vm.synced_folder "cookbooks/", "/home/vagrant/cookbooks"
     db.vm.provision "shell", path: "webservers/chef_setup.sh"
+    db.vm.provision "shell", inline: "sudo chef-client --local-mode --runlist 'recipe[database]'"
   end
 end

@@ -1,0 +1,36 @@
+stage('Build') {
+
+  parallel (
+
+      "app" : {
+          node('standard'){
+              git 'https://github.com/mo-martin/setup-server'
+              sh 'curl -L https://www.opscode.com/chef/install.sh | sudo bash'
+              sh 'curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chefdk -c stable -v 0.16.28'
+              sh 'sudo chef-client --local-mode --runlist \'recipe[webserver]\''
+              sh 'file=\"/var/www/html/*\" if [ -f \"$file\" ] then	sudo rm /var/www/html/index* fi'
+              sh 'git clone https://github.com/alanbonhamsky/pokergamefront /var/www/html'
+              sh 'npm install'
+              }
+          },
+      "api" : {
+          node('standard') {
+            git 'https://github.com/mo-martin/setup-server'
+            sh 'curl -L https://www.opscode.com/chef/install.sh | sudo bash'
+            sh 'curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chefdk -c stable -v 0.16.28'
+            sh 'sudo chef-client --local-mode --runlist \'recipe[webserver]\''
+            sh 'file=\"/var/www/html/*\" if [ -f \"$file\" ] then	sudo rm /var/www/html/index* fi'
+            sh 'git clone https://github.com/nathn123/PokerGame-API.git /var/www/html'
+            sh 'npm install'
+          }
+      },
+      "db" : {
+          node('standard') {
+            git 'https://github.com/mo-martin/setup-server'
+            sh 'curl -L https://www.opscode.com/chef/install.sh | sudo bash'
+            sh 'curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -P chefdk -c stable -v 0.16.28'
+            sh 'sudo chef-client --local-mode --runlist \'recipe[database]\''
+          }
+      }
+  )
+}
