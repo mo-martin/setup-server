@@ -13,6 +13,7 @@ Now create an app and api folder in the same directory as the newly cloned 'serv
 
 This is now setup for you to work locally.
 
+
 #Local server Ip's
 192.10.10.100 = app 
 
