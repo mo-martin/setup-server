@@ -44,7 +44,7 @@ popd
 pushd my-node-db
 docker build --tag my-node-db:latest .
 popd
-docker run --name moses-db -p 27017:27017 -d my-node-db:latest
-docker run --name moses-api -p 3001:3000 -e DB_URL=mongodb://192.168.99.100/Poker -d my-node-api:latest
-docker run --name moses-app -p 3000:3000 -e API_URL=http://192.168.99.100:3001 -d my-node-app:latest
+docker run --name moses-db -d my-node-db:latest
+docker run --name moses-api --link moses-db:db -e DB_URL=mongodb://db/Poker -d my-node-api:latest
+docker run --name moses-app -p 3000:3000 --link moses-api:api -e API_URL=http://api:3000 -d my-node-app:latest
 docker ps -a
