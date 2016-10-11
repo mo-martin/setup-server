@@ -44,7 +44,22 @@ popd
 pushd my-node-db
 docker build --tag my-node-db:latest .
 popd
-docker run --name moses-db -d my-node-db:latest
+
+# Mongo
+echo -e "\033[0;31mChecking for my-mongo-data \033[0m"
+set +e
+docker ps -a | grep my-mongo-data > /dev/null
+FOUND_MONGO=$?
+set -e
+
+if [[ "$FOUND_MONGO" == "0" ]]; then
+ echo -e "\033[0;32mMongo data store already exists\033[0m"
+else
+ echo -e "\033[1;33mRunning data container\033[0m"
+ docker create --name my-mongo-data my-mongo-data:latest
+fi
+
+docker run --name moses-db --volumes-from my-mongo-data -d my-node-db:latest
 docker run --name moses-api --link moses-db:db -e DB_URL=mongodb://db/Poker -d my-node-api:latest
 docker run --name moses-app -p 3000:3000 --link moses-api:api -e API_URL=http://api:3000 -d my-node-app:latest
 docker ps -a
